@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
+Route::get('/home', function () {
+    return view('app.home');
+});
+Route::get('/sales', function () {
+    return view('app.sales');
+});
+Route::get('/sales/estimate/create', function () {
+    return view('app.create-estimate');
+});
+Route::get('/purchases', function () {
+    return view('app.purchases');
+});
+Route::get('/inventory', function () {
+    return view('app.inventory');
+});
