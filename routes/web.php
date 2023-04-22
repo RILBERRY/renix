@@ -22,12 +22,27 @@ Route::get('/home', function () {
 Route::get('/sales', function () {
     return view('app.sales');
 });
-Route::get('/sales/estimate/create', function () {
-    return view('app.create-estimate');
-});
 Route::get('/purchases', function () {
     return view('app.purchases');
 });
 Route::get('/inventory', function () {
     return view('app.inventory');
+});
+// sale
+Route::get('/sales/estimate/create', function () {
+    return view('app.create-estimate');
+});
+
+// purchase
+Route::get('/purchases/create', function () {
+    return view('app.create-purchases');
+});
+
+// setting
+Route::get('/setting', function () {
+    return view('app.setting');
+});
+Route::get('/setting/fund/create', function () {
+    return view('app.create-fund');
+
 });

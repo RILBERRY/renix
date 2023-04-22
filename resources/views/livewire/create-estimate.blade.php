@@ -23,19 +23,19 @@
         <div class="w-full mt-5 p-2 rounded-lg bg-gray-200 {{ $customerInfo ?: 'hidden' }}">
             <div class="p-1 flex flex-col">
                 <label class="p-1">Customer Name</label>
-                <input class=" rounded-md" type="text" placeholder="Customer Name">
+                <input class=" rounded-md p-2" type="text" placeholder="Customer Name">
             </div>
             <div class="p-1 flex flex-col">
                 <label class="p-1">Customer Number</label>
-                <input class=" rounded-md" type="text" placeholder="Customer Number">
+                <input class=" rounded-md p-2" type="text" placeholder="Customer Number">
             </div>
             <div class="p-1 flex flex-col">
                 <label class="p-1">TIN</label>
-                <input class=" rounded-md" type="text" placeholder="TIN">
+                <input class=" rounded-md p-2" type="text" placeholder="TIN">
             </div>
             <div class="p-1 flex flex-col">
                 <label class="p-1">Address</label>
-                <input class=" rounded-md" type="text" placeholder="Address">
+                <input class=" rounded-md p-2" type="text" placeholder="Address">
             </div>
             <div class="mt-2 p-1 flex flex-col">
                 <button class="flex-1 bg-green-800/90 text-white rounded-lg p-2">Save</button>
@@ -46,14 +46,14 @@
         <div class=" w-full mt-5 p-2 rounded-lg bg-gray-200 {{ $itemsInfo ?: 'hidden' }}">
             <div class="p-1 flex flex-col ">
                 <label class="p-1">Item Name</label>
-                <input class=" rounded-md" type="text" placeholder="Item Name">
+                <input class=" rounded-md p-2" type="text" placeholder="Item Name">
             </div>
             <div class=" absolute right-14 -translate-y-9" Onclick="alert('hello')">
                 <p>Cam</p>
             </div>
             <div class="p-1 flex flex-col">
                 <label class="p-1">QTY</label>
-                <input class=" rounded-md" type="number" placeholder="QTY">
+                <input class=" rounded-md p-2" type="number" placeholder="QTY">
             </div>
             <div class="mt-2 p-1 flex flex-col">
                 <button class="flex-1 bg-green-800/90 text-white rounded-lg p-2">Add</button>
