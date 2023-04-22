@@ -38,19 +38,19 @@
 
         </div>
     @endif
-    <div class="bg-blue-900 fixed py-5 px-4 flex items-center justify-between w-full z-20">
+    <div class="bg-orange-300 fixed py-5 px-4 flex items-center justify-between w-full z-20">
         <div class="text-white font-bold text-lg">Manager</div>
         {{-- <div class="text-white text-center">April 14, 2023</div> --}}
         <div class="flex items-center">
             <div class="h-8 w-8 rounded-full bg-gray-500" onclick="openNav()"></div>
         </div>
     </div>
-    <div class=" absolute text-center right-0 top-14 overflow-hidden duration-500 w-52 h-0 z-10 p-2 bg-blue-800 rounded-b-md "
+    <div class=" absolute text-center right-0 top-14 overflow-hidden duration-500 w-52 h-0 z-10 bg-orange-300 rounded-b-md "
         id="navBar">
         <div class="w-full flex flex-col space-y-2">
             <h4 class="p-2 pt-6 text-white">Ali Rilwan</h4>
             {{-- <a href="/home" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Home</a --}}
-            <a href="/calendar" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">setting</a>
+            <a href="/setting" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">setting</a>
             {{-- <a href="/manage-tasks" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Manage tasks</a> --}}
             <form action="/logout" method="post">
                 @csrf
@@ -98,7 +98,9 @@
 
         function openNav() {
             navBar.classList.toggle('h-0', navBar.classList.contains('h-44'));
+            navBar.classList.toggle('p-0', navBar.classList.contains('h-44'));
             navBar.classList.toggle('h-44', !navBar.classList.contains('h-0'));
+            navBar.classList.toggle('p-2', !navBar.classList.contains('h-0'));
         }
 
 
