@@ -2,7 +2,8 @@
 @extends('app.main')
 @section('content')
 
-<div class="w-full p-2 flex flex-col text-xs space-y-1">
+<form action="{{Route('store-fund')}}" method="post" class="w-full p-2 flex flex-col text-xs space-y-1">
+    @csrf
     <div class="w-full p-2 flex justify-between ">
         <h3 class=" text-sm font-semibold my-auto">Create New Fund</h3>
         <a href="/setting" class="p-2 bg-gray-500 text-white rounded-md w-24 text-center my-auto"> Back</a>
@@ -14,8 +15,8 @@
         </div>
     
         <div class="p-1 flex flex-col">
-            <label for="currency_type">Currency Type:</label>
-            <select  name="currency_type" id="currency_type" class="rounded-md p-2">
+            <label for="currency">Currency Type:</label>
+            <select  name="currency" id="currency" class="rounded-md p-2">
               <option value="MVR">MVR</option>
               <option value="USD">USD</option>
             </select>
@@ -25,9 +26,10 @@
             <label for="assign_to">Assign To:</label>
             <select name="assign_to" id="assign_to" class="rounded-md p-2">
               <option value="">Select User</option>
-              <option value="1">User 1</option>
-              <option value="2">User 2</option>
-              <option value="3">User 3</option>
+                @foreach ($users as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+              
             </select>
         </div>
     
@@ -36,7 +38,7 @@
             <label for="status">Status:</label>
             <select name="status" id="status" class="rounded-md p-2">
                 <option value="1">Active</option>
-                <option value="2">Inactive</option>
+                <option value="0">Inactive</option>
               </select>
         </div>
     

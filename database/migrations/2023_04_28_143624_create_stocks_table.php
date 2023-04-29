@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('estimates', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('estimate_no');
-            $table->string('valid_till')->nullable();
-            $table->foreignId('customer_id')->nullable()->constrained('customers');
+            $table->foreignId('item_id')->constrained('items');
+            $table->integer('qty_in')->nullable();
+            $table->integer('qty_out')->nullable();
+            $table->integer('notif_limit')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('estimates');
+        Schema::dropIfExists('stocks');
     }
 };

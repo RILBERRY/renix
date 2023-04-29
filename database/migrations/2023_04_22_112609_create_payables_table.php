@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('description')->nullable();
             $table->decimal('amount',10,2);
-            $table->string('currency');
             $table->string('status');
             $table->string('ref_number')->nullable();
-            $table->foreignId('approved_by')->constrained('users')->nullable();
-            $table->foreignId('fund_id')->constrained('funds')->nullable();
+            $table->foreignId('approved_by')->nullable()->constrained('users');
+            $table->foreignId('fund_id')->nullable()->constrained('funds');
             $table->timestamps();
         });
     }

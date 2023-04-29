@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\FundsController;
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,37 +17,38 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware('auth')->group(function (){
 
-Route::get('/', function () {
-    return view('main');
-});
-Route::get('/home', function () {
-    return view('app.home');
-});
-Route::get('/sales', function () {
-    return view('app.sales');
-});
-Route::get('/purchases', function () {
-    return view('app.purchases');
-});
-Route::get('/inventory', function () {
-    return view('app.inventory');
-});
-// sale
-Route::get('/sales/estimate/create', function () {
-    return view('app.create-estimate');
-});
+    Route::get('/', function () {
+        return redirect('/home');
+    });
+    // Route::get('/home', function () {
+    //     return view('app.home');
+    // });
+    Route::get('/sales', function () {
+        return view('app.sales');
+    });
 
-// purchase
-Route::get('/purchases/create', function () {
-    return view('app.create-purchases');
-});
-
-// setting
-Route::get('/setting', function () {
-    return view('app.setting');
-});
-Route::get('/setting/fund/create', function () {
-    return view('app.create-fund');
-
+    // sale
+    Route::get('/sales/estimate/create', function () {
+        return view('app.create-estimate');
+    });
+    // home
+    Route::get('/home',[ItemsController::class,'home'])->name('home');
+    
+    // purchase
+    Route::get('/purchases',[PurchasesController::class,'index'])->name('purchases.list');
+    Route::get('/purchases/create',[PurchasesController::class,'create'])->name('create-purchases');
+    Route::get('/purchases/{purchase}/edit',[PurchasesController::class,'edit'])->name('create-purchases');
+    //inventory
+    Route::get('/inventory',[StockController::class,'index'])->name('setting');
+        
+    // setting
+    Route::get('/setting',[SettingsController::class,'index'])->name('setting');
+    
+    //fund
+    Route::post('/setting/fund/create',[FundsController::class,'store'])->name('store-fund');
+    Route::get('/setting/fund/create',[FundsController::class,'create'])->name('create-fund');
+    
+        
 });

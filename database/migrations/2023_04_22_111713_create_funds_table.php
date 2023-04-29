@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('assign_to')->constrained('users')->nullable();
+            $table->foreignId('assign_to')->nullable()->constrained('users');
             $table->string('name');
-            $table->string('currency_type');
+            $table->string('currency');
             $table->boolean('status');
-            $table->string('balance');
-
+            $table->decimal('balance',10,2)->nullable();
             $table->timestamps();
         });
     }

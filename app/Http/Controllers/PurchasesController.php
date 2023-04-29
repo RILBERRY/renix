@@ -12,7 +12,10 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        //
+        session()->forget('isEditing');
+        $purchases = Purchases::all();
+        return view('app.purchases',compact('purchases'));
+        
     }
 
     /**
@@ -20,7 +23,8 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.create-purchases');
+        
     }
 
     /**
@@ -42,9 +46,11 @@ class PurchasesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Purchases $purchases)
+    public function edit(Purchases $purchase)
     {
-        //
+        session()->put('purchases', $purchase);
+        session()->put('isEditing', true);
+        return view('app.edit-purchases');
     }
 
     /**

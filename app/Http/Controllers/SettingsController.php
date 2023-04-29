@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Funds;
-use App\Models\User;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 
-class FundsController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $funds = Funds::with('assignTo')->get();
+        return view('app.setting',compact('funds'));
     }
 
     /**
@@ -21,9 +22,7 @@ class FundsController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        return view('app.create-fund',compact('users'));
-
+        //
     }
 
     /**
@@ -31,17 +30,13 @@ class FundsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Funds::checkAndCollect($request);
-        $record = Funds::create($data);
-        return $record
-        ? redirect(route('setting'))->with('success', 'Model created successfully!')
-        : redirect()->with('error', 'Fail! Try again');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Funds $funds)
+    public function show(Settings $settings)
     {
         //
     }
@@ -49,7 +44,7 @@ class FundsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Funds $funds)
+    public function edit(Settings $settings)
     {
         //
     }
@@ -57,7 +52,7 @@ class FundsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Funds $funds)
+    public function update(Request $request, Settings $settings)
     {
         //
     }
@@ -65,7 +60,7 @@ class FundsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Funds $funds)
+    public function destroy(Settings $settings)
     {
         //
     }

@@ -45,7 +45,7 @@
             <div class="h-8 w-8 rounded-full bg-gray-500" onclick="openNav()"></div>
         </div>
     </div>
-    <div class=" absolute text-center right-0 top-14 overflow-hidden duration-500 w-52 h-0 z-10 bg-orange-300 rounded-b-md "
+    <div class=" fixed text-center right-0 top-14 overflow-hidden duration-500 w-52 h-0 z-10 bg-orange-300 rounded-b-md "
         id="navBar">
         <div class="w-full flex flex-col space-y-2">
             <h4 class="p-2 pt-6 text-white">Ali Rilwan</h4>

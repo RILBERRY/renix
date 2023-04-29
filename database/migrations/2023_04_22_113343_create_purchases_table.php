@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('pv_no');
             $table->string('supplyer_name')->nullable();
-            $table->foreignId('payable_id')->constrained('payables')->nullable();
+            $table->foreignId('payable_id')->nullable()->constrained('payables');
+            $table->string('status');
             $table->timestamps();
         });
     }

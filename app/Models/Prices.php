@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Prices extends Model
 {
@@ -19,4 +21,13 @@ class Prices extends Model
         'is_taxable',
         'unit_price',
     ];
+
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Items::class);
+    }
+    public function purchase(): BelongsTo
+    {
+        return $this->belongsTo(Purchases::class);
+    }
 }

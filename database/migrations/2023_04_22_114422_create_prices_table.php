@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('purchase_id')->constrained('purchases')->nullable();
-            $table->foreignId('item_id')->constrained('items')->nullable();
+            $table->foreignId('purchase_id')->nullable()->constrained('purchases');
+            $table->foreignId('item_id')->nullable()->constrained('items');
             $table->decimal('cost_price',10,2)->nullable();
+            $table->integer('qty')->nullable();
             $table->decimal('fright',10,2)->nullable();
             $table->decimal('clearance',10,2)->nullable();
             $table->decimal('max_discount',10,2)->nullable();

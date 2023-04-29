@@ -10,9 +10,13 @@ class ItemsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function home()
     {
-        //
+        $products = Items::with('price')->whereHas('stock', function($query) {
+            $query->whereRaw('qty_in - qty_out <> 0');
+        })->get();
+        dd($products);
+        return view('app.home');
     }
 
     /**
