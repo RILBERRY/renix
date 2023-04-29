@@ -12,11 +12,11 @@ class ItemsController extends Controller
      */
     public function home()
     {
-        $products = Items::with('price')->whereHas('stock', function($query) {
-            $query->whereRaw('qty_in - qty_out <> 0');
-        })->get();
-        dd($products);
-        return view('app.home');
+        $products = Items::with(['price','stock'])->get();
+        // $products = Items::with('price')->whereHas('stock', function($query) {
+        //     $query->whereRaw('qty_in - qty_out <> 0');
+        // })->get();
+        return view('app.home',compact('products'));
     }
 
     /**

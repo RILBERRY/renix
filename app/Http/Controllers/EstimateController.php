@@ -10,17 +10,18 @@ class EstimateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function all()
     {
-        //
+        return view('app.sales');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createEstimate()
     {
-        //
+        return view('app.create-estimate');
+        
     }
 
     /**

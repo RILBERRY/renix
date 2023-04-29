@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EstimateController;
 use App\Http\Controllers\FundsController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\PurchasesController;
@@ -25,14 +26,13 @@ Route::middleware('auth')->group(function (){
     // Route::get('/home', function () {
     //     return view('app.home');
     // });
-    Route::get('/sales', function () {
-        return view('app.sales');
-    });
+  
 
     // sale
-    Route::get('/sales/estimate/create', function () {
-        return view('app.create-estimate');
-    });
+    Route::get('/sales',[EstimateController::class,'all'])->name('estimateAndInvoice.list');
+    Route::get('/sales/estimate/create',[EstimateController::class,'createEstimate'])->name('create-estimate');
+   
+    
     // home
     Route::get('/home',[ItemsController::class,'home'])->name('home');
     

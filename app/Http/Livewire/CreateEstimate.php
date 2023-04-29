@@ -2,31 +2,174 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Customers;
+use App\Models\Items;
+use App\Models\Orders;
+use App\Models\Estimate;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class CreateEstimate extends Component
 {
-    public $customerInfo = false;
+    public $customerInfo = true;
     public $itemsInfo = false;
-    public $receipt = true;
+    public $receipt = false;
     public $payment = false;
     public $receiptSavedStatus = false;
+    public $customer;
+    public $estimate;
+    public $ourProducts;
+    public $item;
+    public $order;
+    public $myOrders;
+    public $estomateTotal;
 
+    public function mount()
+    {
+        $this->customer = new Customers();
+        $this->item = new Items();
+        $this->order = new Orders();
+        $this->order->qty = 1;
 
+        if(session()->has('customer')){
+            $this->estimate = session()->get('estimate');
+            $this->customer = session()->get('customer');
+            $this->load('receipt');
+        }
+    }
+    public function resetEstimate()
+    {
+        session()->forget('customer');
+        return redirect()->to(route('create-estimate'));
+    }
 
     public function setActiveStep($step)
     {
         $this->customerInfo = 'customerInfo' == $step ? true : false;
         $this->itemsInfo = 'itemsInfo' == $step ? true : false;
         $this->receipt = 'receipt' == $step ? true : false;
-        $this->payment = 'payment' == $step ? true : false;
+        // $this->payment = 'payment' == $step ? true : false;
     }
+
+    protected $rules = [
+        'customer.code' => 'nullable',
+        'customer.name' => 'nullable',
+        'customer.contact' => 'nullable',
+        'customer.tin' => 'nullable',
+        'customer.address' => 'nullable',
+
+        'item.title' => 'nullable',
+        'order.qty' => 'nullable',
+    ];
+    protected $customerRules = [
+        'customer.code' => 'nullable',
+        'customer.name' => 'required',
+        'customer.contact' => 'required',
+        'customer.tin' => 'nullable',
+        'customer.address' => 'nullable',
+    ];
+
+    public function load($step)
+    {
+        $this->myOrders = Orders::with('item')->where('estimate_id',$this->estimate->id)->get();
+        $this->estomateTotal = Orders::where('estimate_id',$this->estimate->id)->selectRaw('SUM(qty * price) as total')->first()->total;
+        $this->setActiveStep($step);
+        if($step == "itemsInfo"){
+            $this->ourProducts = $this->getProducts();
+        }
+        $this->setActiveStep($step);
+    }
+
+    public function getCustomer()
+    {
+        if(Customers::where('contact',$this->customer->contact)->exists()){
+            $this->customer = Customers::where('contact', $this->customer->contact)->first();
+            session()->put('customer',$this->customer);
+        }
+    }
+
+    public function getProducts()
+    {
+        return Items::with(['price','stock'])->whereHas('stock', function($query) {
+            $query->where('title', 'like', '%'.$this->item->title.'%')
+            ->orWhere('type', 'like', '%'.$this->item->title.'%')
+            ->orWhere('description', 'like', '%'.$this->item->title.'%');
+        })->get();
+    }
+
+    public function getproductInfo($item_id)
+    {
+        $this->item = Items::with(['price','stock'])->where('id',$item_id)->first();
+        if(($this->item->stock->qty_in - $this->item->stock->qty_out) == 0){
+            $this->item = new Items();
+        }
+        // dd($this->item);
+    }
+
+    public function saveCustomer()
+    {
+        $this->validate($this->customerRules);
+        $this->customer->code = $this->customer->code?:$this->createCustomerCode();
+        $this->customer->save();
+        $this->estimate = Estimate::create([
+            'estimate_no' => $this->generateEstimateNo() ,
+            'valid_till' => Carbon::now()->addDays(14)->toDateString() ,
+            'customer_id' => $this->customer->id ,
+        ]);
+        $this->estimate->save();
+        session()->put('estimate',$this->estimate);
+        session()->put('customer',$this->customer);
+        $this->load('itemsInfo');
+    }
+
+    public function createCustomerCode()
+    {
+        $lastCustomer = Customers::orderByDesc('code')->first();
+        $lastCodeNumber = 0;
+        
+        if ($lastCustomer) {
+            $lastCodeNumber = (int)substr($lastCustomer->code, -6);
+        }
+        
+        $newCodeNumber = $lastCodeNumber + 1;
+        $newCode = 'SL' . str_pad($newCodeNumber, 6, '0', STR_PAD_LEFT);
+        
+        return $newCode;
+    }
+    public function generateEstimateNo()
+    {
+        $lastEstimate = Estimate::orderByDesc('estimate_no')->first();
+        $lastCodeNumber = 0;
+        
+        if ($lastEstimate) {
+            $lastCodeNumber = (int)substr($lastEstimate->code, -6);
+        }
+        
+        $newCodeNumber = $lastCodeNumber + 1;
+        $newCode = 'SL-ET-' . str_pad($newCodeNumber, 6, '0', STR_PAD_LEFT);
+        
+        return $newCode;
+    }
+
+    public function addtoCart()
+    {
+        $this->order->status = 'PENDING' ;
+        $this->order->estimate_id = $this->estimate->id ;
+        $this->order->item_id = $this->item->id ;
+        $this->order->price = $this->item->price->unit_price ;
+        $this->order->save();
+        $this->item = new Items();
+        $this->order = new Orders();
+        $this->load('receipt');
+    }
+
     public function saveEstimate()
     {
         $this->receiptSavedStatus = true;
     }
     public function render()
     {
+        $this->ourProducts = $this->getProducts();
         return view('livewire.create-estimate');
     }
 }
