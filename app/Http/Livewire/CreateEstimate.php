@@ -29,12 +29,17 @@ class CreateEstimate extends Component
         $this->customer = new Customers();
         $this->item = new Items();
         $this->order = new Orders();
-        $this->order->qty = 1;
 
         if(session()->has('customer')){
             $this->estimate = session()->get('estimate');
             $this->customer = session()->get('customer');
             $this->load('receipt');
+        }elseif(Estimate::where('status','PENDING')->exists()){
+            $this->estimate = Estimate::with('customer')->where('status','PENDING')->first();
+            $this->customer = $this->estimate->customer;
+            session()->put('estimate', $this->estimate);
+            session()->put('customer', $this->customer);
+            $this->load('supplyerInfo');
         }
     }
     public function resetEstimate()
@@ -45,6 +50,10 @@ class CreateEstimate extends Component
 
     public function setActiveStep($step)
     {
+        if($step == "receipt"){
+            $this->order = new Orders();
+            $this->item = new Items();
+        }
         $this->customerInfo = 'customerInfo' == $step ? true : false;
         $this->itemsInfo = 'itemsInfo' == $step ? true : false;
         $this->receipt = 'receipt' == $step ? true : false;
@@ -60,6 +69,7 @@ class CreateEstimate extends Component
 
         'item.title' => 'nullable',
         'order.qty' => 'nullable',
+        'order.price' => 'nullable',
     ];
     protected $customerRules = [
         'customer.code' => 'nullable',
@@ -67,6 +77,11 @@ class CreateEstimate extends Component
         'customer.contact' => 'required',
         'customer.tin' => 'nullable',
         'customer.address' => 'nullable',
+    ];
+    protected $orderRules = [
+        'item.title' => 'nullable',
+        'order.qty' => 'nullable',
+        'order.price' => 'nullable',
     ];
 
     public function load($step)
@@ -100,6 +115,8 @@ class CreateEstimate extends Component
     public function getproductInfo($item_id)
     {
         $this->item = Items::with(['price','stock'])->where('id',$item_id)->first();
+        $this->order->price = $this->item->price->unit_price;
+        // $this->order->qty = 1;
         if(($this->item->stock->qty_in - $this->item->stock->qty_out) == 0){
             $this->item = new Items();
         }
@@ -115,6 +132,7 @@ class CreateEstimate extends Component
             'estimate_no' => $this->generateEstimateNo() ,
             'valid_till' => Carbon::now()->addDays(14)->toDateString() ,
             'customer_id' => $this->customer->id ,
+            'status' => 'PENDING',
         ]);
         $this->estimate->save();
         session()->put('estimate',$this->estimate);
@@ -153,19 +171,40 @@ class CreateEstimate extends Component
 
     public function addtoCart()
     {
-        $this->order->status = 'PENDING' ;
-        $this->order->estimate_id = $this->estimate->id ;
-        $this->order->item_id = $this->item->id ;
-        $this->order->price = $this->item->price->unit_price ;
-        $this->order->save();
+        $this->validate($this->orderRules);
+        if($this->order->price){
+
+            $this->order->status = 'PENDING' ;
+            $this->order->estimate_id = $this->estimate->id ;
+            $this->order->item_id = $this->item->id ;
+            // $this->order->price = $this->item->price->unit_price ;
+            $this->order->save();
+        }
         $this->item = new Items();
         $this->order = new Orders();
         $this->load('receipt');
     }
 
+    public function editOrder($order_id)
+    {
+        $this->order = Orders::with('item')->find($order_id);
+        $this->item = $this->order->item;
+        $this->load('itemsInfo');
+
+    }
+    public function removeFromCart($order_id)
+    {
+        $this->order->delete();
+        $this->order = new Orders();
+
+     
+    }
+
     public function saveEstimate()
     {
         $this->receiptSavedStatus = true;
+        $this->estimate->update([ 'status' => 'COMPLETED' ]); 
+
     }
     public function render()
     {

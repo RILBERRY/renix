@@ -217,7 +217,7 @@ class CreatePurchase extends Component
         $this->validate($this->payableRules);
         $this->payable->save();
         $this->purchase->update([
-            'status' => "COMPELETED",
+            'status' => "COMPLETED",
             'payable_id' => $this->payable->id,
         ]);
         session()->forget('purchases');

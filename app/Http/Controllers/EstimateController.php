@@ -12,6 +12,8 @@ class EstimateController extends Controller
      */
     public function all()
     {
+        session()->forget('isEditing');
+        $estimate = Estimate::all();
         return view('app.sales');
     }
 

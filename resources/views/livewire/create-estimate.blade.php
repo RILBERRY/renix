@@ -55,8 +55,15 @@
                 <label class="p-1">QTY</label>
                 <input class=" rounded-md p-2" type="number" wire:model="order.qty" placeholder="QTY">
             </div>
+            <div class="p-1 flex flex-col">
+                <label class="p-1">Price</label>
+                <input class=" rounded-md p-2" type="number" wire:model="order.price" placeholder="Price">
+            </div>
             <div class="mt-2 p-1 flex flex-col">
-                <button class="flex-1 text-white rounded-lg p-2 {{$item->id?'bg-green-800/90':'bg-green-800/30';}}" type="text" {{$item->id?'':'disabled';}}>Add</button>
+                <button class="flex-1 text-white rounded-lg p-2 {{$item->id?'bg-green-800/90':'bg-green-800/30';}}" type="text" {{$item->id?'':'disabled';}}>{{$order->id?'Update':'Add'}}</button>
+            </div>
+            <div class="mt-2 p-1 flex flex-col {{$order->id?'':'hidden'}}">
+                <button wire:click="removeFromCart({{$order->id}})" class="flex-1 text-white rounded-lg p-2 {{$item->id?'bg-red-800/90':'bg-green-800/30';}}" type="text" {{$item->id?'':'disabled';}}>Delete</button>
             </div>
         </form>
         <h2 class="pt-4 font-semibold   {{ $itemsInfo ?: 'hidden' }}">Products</h2>
@@ -120,8 +127,9 @@
         </div>
 
         <div class="p-1 flex flex-col h-[37vh] overflow-auto">
+            @if ($myOrders)
             @foreach ($myOrders as $entry)  
-            <div class="w-full flex my-1 p-2 rounded-lg border-[.2px] border-gray-400/50 bg-gray-300/20 flex-shrink-0">
+            <div wire:click="editOrder({{$entry->id}})" class="w-full flex my-1 p-2 rounded-lg border-[.2px] border-gray-400/50 bg-gray-300/20 flex-shrink-0">
                 <div class="flex flex-col w-full">
                     <div class="flex w-full">
                         <p>{{$entry->item->title}}</p>
@@ -153,12 +161,13 @@
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
 
         <div class="p-3 mt-2 space-x-3 flex w-full justify-center text-white">
             <button class="w-32 p-1 bg-green-800/90 mx-auto rounded-lg {{ $receiptSavedStatus ? 'hidden' : '' }}"
                 wire:click="saveEstimate">Save</button>
-            <button class="p-2 bg-blue-800/90 flex-1 rounded-lg {{ $receiptSavedStatus ?: 'hidden' }}">Print
+            <button class="p-2 bg-blue-800/90 flex-1 rounded-lg {{ $receiptSavedStatus ?: 'hidden' }}" wire:Click="printEstimate">Print
                 Estimate</button>
             <button class="p-2 bg-green-800/90 flex-1 rounded-lg {{ $receiptSavedStatus ?: 'hidden' }}">
                 Invoice</button>
