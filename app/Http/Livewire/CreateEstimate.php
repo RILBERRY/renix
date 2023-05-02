@@ -30,16 +30,21 @@ class CreateEstimate extends Component
         $this->customer = new Customers();
         $this->item = new Items();
         $this->order = new Orders();
-
+        if(!session()->has('isEditing')){
+            session()->forget('customer');
+            session()->forget('estimate');
+        }
         if(session()->has('customer')){
             $this->estimate = session()->get('estimate');
             $this->customer = session()->get('customer');
+            $this->receiptSavedStatus = $this->estimate->status == "COMPLETED"?true:false;
             $this->load('receipt');
         }elseif(Estimate::where('status','PENDING')->exists()){
             $this->estimate = Estimate::with('customer')->where('status','PENDING')->first();
             $this->customer = $this->estimate->customer;
             session()->put('estimate', $this->estimate);
             session()->put('customer', $this->customer);
+            $this->receiptSavedStatus = $this->estimate->status == "COMPLETED"?true:false;
             $this->load('supplyerInfo');
         }
     }
@@ -161,7 +166,7 @@ class CreateEstimate extends Component
         $lastCodeNumber = 0;
         
         if ($lastEstimate) {
-            $lastCodeNumber = (int)substr($lastEstimate->code, -6);
+            $lastCodeNumber = (int)substr($lastEstimate->estimate_no, -6);
         }
         
         $newCodeNumber = $lastCodeNumber + 1;

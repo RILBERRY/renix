@@ -14,8 +14,11 @@ class EstimateController extends Controller
     public function all()
     {
         session()->forget('isEditing');
-        $estimate = Estimate::all();
-        return view('app.sales');
+        $estimates = estimate::with(['orders','customer'])->orderByDesc('id')->get();
+        foreach ($estimates as $estimate) {
+            $estimate['total'] = $estimate->getEstimateTotal($estimate->id);
+        }
+        return view('app.sales',compact('estimates'));
     }
 
     /**
@@ -34,7 +37,7 @@ class EstimateController extends Controller
     {
         
         $pdf = Pdf::loadView('pdf.estimate');
-        return $pdf->download('invoice.pdf');
+        return $pdf->stream();
     }
 
     /**
@@ -50,7 +53,9 @@ class EstimateController extends Controller
      */
     public function edit(Estimate $estimate)
     {
-        //
+        session()->put('estimate', $estimate);
+        session()->put('isEditing', true);
+        return view('app.edit-estimate');
     }
 
     /**

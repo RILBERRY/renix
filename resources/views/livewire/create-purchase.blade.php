@@ -179,7 +179,7 @@
             <input class=" rounded-md p-2" type="text" wire:model="payable.ref_number" placeholder="Refrence number">
         </div>
         <div class="mt-2 p-1 flex flex-col">
-            <button class="flex-1 bg-green-800/90 text-white rounded-lg p-2" type="submit">Save</button>
+            <button class="flex-1 bg-green-800/90 text-white rounded-lg p-2" type="submit">{{$purchase?->id?'Update':'Save'}}</button>
         </div>
     </form>
 

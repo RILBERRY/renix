@@ -2,7 +2,7 @@
 @extends('app.main')
 @section('content')
 
-<form action="{{Route('store-fund')}}" method="post" class="w-full p-2 flex flex-col text-xs space-y-1">
+<form action="/setting/fund/create" method="post" class="w-full p-2 flex flex-col text-xs space-y-1">
     @csrf
     <div class="w-full p-2 flex justify-between ">
         <h3 class=" text-sm font-semibold my-auto">Create New Fund</h3>
