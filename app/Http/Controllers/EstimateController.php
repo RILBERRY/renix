@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Estimate;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EstimateController extends Controller
 {
@@ -29,9 +30,11 @@ class EstimateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function downloadEstimate(Estimate $estimate)
     {
-        //
+        
+        $pdf = Pdf::loadView('pdf.estimate');
+        return $pdf->download('invoice.pdf');
     }
 
     /**

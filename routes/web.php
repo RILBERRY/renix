@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function (){
     // sale
     Route::get('/sales',[EstimateController::class,'all'])->name('estimateAndInvoice.list');
     Route::get('/sales/estimate/create',[EstimateController::class,'createEstimate'])->name('create-estimate');
+    Route::get('/sales/estimate/{estimate}/download',[EstimateController::class,'downloadEstimate'])->name('download-estimate');
    
     
     // home

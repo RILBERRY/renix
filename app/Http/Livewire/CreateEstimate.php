@@ -9,6 +9,7 @@ use App\Models\Estimate;
 use Carbon\Carbon;
 use Livewire\Component;
 
+
 class CreateEstimate extends Component
 {
     public $customerInfo = true;
@@ -202,10 +203,14 @@ class CreateEstimate extends Component
 
     public function saveEstimate()
     {
-        $this->receiptSavedStatus = true;
-        $this->estimate->update([ 'status' => 'COMPLETED' ]); 
+        if($this->estimate){
+            $this->receiptSavedStatus = true;
+            $this->estimate->update([ 'status' => 'COMPLETED' ]); 
+        }
+        
 
     }
+
     public function render()
     {
         $this->ourProducts = $this->getProducts();
