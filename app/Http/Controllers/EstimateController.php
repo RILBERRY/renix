@@ -36,7 +36,10 @@ class EstimateController extends Controller
     public function downloadEstimate(Estimate $estimate)
     {
         
-        $pdf = Pdf::loadView('pdf.estimate');
+        $estimate->load('customer','orders.item');
+        $estimate['total'] = $estimate->getEstimateTotal($estimate->id);
+        
+        $pdf = Pdf::loadView('pdf.estimate',compact('estimate'));
         return $pdf->stream();
     }
 

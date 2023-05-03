@@ -18,7 +18,6 @@
         }  
         .quote{
             top:15%;
-            left:-20px;
             transform : transilateY(-20%);
             transform: rotate(-90deg);
             position: absolute;
@@ -39,7 +38,7 @@
             /* background-color:aquamarine; */
         }
         .top_left{
-            width: 60%;
+            width: 50%;
             /* background-color:green; */
         }
         .top_right_logo{
@@ -70,7 +69,7 @@
 <body>
     <div class="main_cont">
 
-        <h2 class="quote">QUOTE <span class="main_col">#{{ $estimate->estimate_no }}</span></h2>
+        <h2 class="quote">QUOTE <span class="main_col">#SL/113</span></h2>
         
         <div class="top">
             <div class="top_left" >
@@ -89,16 +88,16 @@
                 <div style="border-bottom: 1px solid gray;" >
                     <p class="main_col" style="font-weight:bold;" >BILL TO</p>
                 </div>    
-                <p > <storng>Name: </storng> {{$estimate->customer->name }}</p>
-                <p> <storng>Contact: </storng> {{$estimate->customer->contact }}</p>
-                <p> <storng>Tin: </storng> {{$estimate->customer->tin }} </p>
-                <p> <storng>Address: </storng> {{$estimate->customer->address }}</p>
+                <p > <storng>Name: </storng> Ali</p>
+                <p> <storng>Contact: </storng> 9555905</p>
+                <p> <storng>Tin: </storng> -</p>
+                <p> <storng>Address: </storng> Alivila</p>
             </div>
             <div class="top_right m-5">
                 <!-- <div style="border-bottom: 1px solid gray;" >
                     <p class="main_col" style="font-weight:bold;" >Smart Lab</p>
                 </div>     -->
-                <p> <storng>Quote Date: </storng> {{date('d-m-Y',strtotime($estimate->created_at)) }}</p>
+                <p> <storng>Quote Date: </storng> 06-04-2023</p>
                 <p> <storng>Valid for: </storng> 60 Days</p>
             </div>
            
@@ -106,7 +105,7 @@
         <div class="top m-5">
             <table >
                 <thead>
-                    <tr style="border:1px solid gray;" >
+                    <tr style="border:1px solid gray;">
                         <th style="padding:4px; background-color: orange; color: white; border: none;">Description</th>
                         <th style="padding:4px; background-color: orange; color: white; border: none;">Qty</th>
                         <th style="padding:4px; background-color: orange; color: white; border: none;">Unit Price</th>
@@ -114,17 +113,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($estimate->orders as $order)
                     <tr>
-                        <td style="padding:2px;border:1px solid gray; width:50%;">{{$order->item->title}}</td>
-                        <td style="padding:2px;border:1px solid gray;text-align:center;">{{$order->qty}}</td>
-                        <td style="padding:2px;border:1px solid gray;text-align:right;">{{number_format($order->price,2)}}</td>
-                        <td style="padding:2px;border:1px solid gray;text-align:right;">{{number_format($order->qty * $order->price,2)}}</td>
+                        <td style="padding:2px;border:1px solid gray; width:50%;">Product 1</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:center;">2</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">10.00</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">20.00</td>
                     </tr>
-                    @endforeach
-
-                    
-
+                    <tr>
+                        <td style="padding:2px;border:1px solid gray; width:50%;">Product 1</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:center;">2</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">10.00</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">20.00</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:2px;border:1px solid gray; width:50%;">Product 1</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:center;">2</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">10.00</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">20.00</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:2px;border:1px solid gray; width:50%;">Product 1</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:center;">2</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">10.00</td>
+                        <td style="padding:2px;border:1px solid gray;text-align:right;">20.00</td>
+                    </tr>
                     <tr style="color:white;">
                         <td style="padding:2px;border:1px solid gray; width:50%;">0 </td>
                         <td style="padding:2px;border:1px solid gray;text-align:center;">0</td>
@@ -135,31 +147,44 @@
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="font-weight:bold; font-size:14px;">SUBTOTAL</td>
-                        <td style="padding:2px;border-bottom:1px solid gray;text-align:right;">{{number_format($estimate->total,2)}}</td>
+                        <td style="padding:2px;border-bottom:1px solid gray;text-align:right;">20.00</td>
                     </tr>
                     <tr>
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="font-weight:bold; font-size:14px;">DISCOUNT</td>
-                        <td style="padding:2px;border-bottom:1px solid gray;text-align:right;">0.00</td>
+                        <td style="padding:2px;border-bottom:1px solid gray;text-align:right;">20.00</td>
                     </tr>
                     <tr>
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="font-weight:bold; font-size:14px;border-bottom:1px solid;">TAX</td>
-                        <td style="padding:2px;border-bottom:1px solid;text-align:right;">0.00</td>
+                        <td style="padding:2px;border-bottom:1px solid;text-align:right;">20.00</td>
                     </tr>
                     <tr>
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="color:orange; font-weight:bold; border-bottom:1px solid black; font-size:14px;">QOUTE TOTAL</td>
-                        <td style="padding:2px;border-bottom:1px solid;text-align:right; font-weight:bold;">{{number_format($estimate->total,2)}}</td>
+                        <td style="padding:2px;border-bottom:1px solid;text-align:right; font-weight:bold;">98,220.00</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
+    <div class="top m-5">
+        <div class="top_left set-right ">
+            <div style="border-bottom: 1px solid gray; padding:5px;" >
+                <p class="main_col" style="font-weight:bold;" >Payment Terms</p>
+            </div>    
+            <p>75% Advance</p>
+            
+        </div>
+        <br>
+        <p>WORK COMPLETION IN 6 DAYS</p>
+        
+    </div>
+    
     <div class="top m-5">
         <div class="top_left m-5">
             <div style="border-bottom: 1px solid gray; padding:5px;" >
@@ -169,9 +194,11 @@
             <p> <storng>BML MVR: </storng> 770 0000 000 000</p>
             <br>
             <p> <storng>BML USD: </storng> 770 0000 000 000</p>
+          
         </div>
         
     </div>
+   
     
 
 </body>
