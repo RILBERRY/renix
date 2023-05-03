@@ -40,7 +40,7 @@ class EstimateController extends Controller
         $estimate['total'] = $estimate->getEstimateTotal($estimate->id);
         
         $pdf = Pdf::loadView('pdf.estimate',compact('estimate'));
-        return $pdf->stream();
+        return $pdf->download($estimate->estimate_no.'.pdf');
     }
 
     /**
