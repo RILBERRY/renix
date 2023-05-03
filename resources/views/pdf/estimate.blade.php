@@ -17,30 +17,48 @@
             /* background: green; */
         }  
         .quote{
-            top:30%;
-            transform : transilateY(-30%);
+            top:15%;
+            transform : transilateY(-20%);
             transform: rotate(-90deg);
             position: absolute;
         }
         .main_col{
             color:orange;
         }
+        .top{
+            width:65%;
+            display: flex;
+            margin: auto;
+            background-color: yellow;
+
+        }
+        .main_cont{
+            position: relative;
+            top: 30%;
+            background-color:aquamarine;
+        }
+        .top_left{
+            width: 50%;
+            background-color:green;
+        }
     </style>
     <title>Document</title>
 </head>
 <body>
-    <h2 class="quote">QUOTE <span class="main_col">#SL/113</span></h2>
+    <div class="main_cont">
 
-    <div class="top">
-        <div class="top_left">
-            <p>Smart Lab</p>
-            <h2 class="main_col">Smart Lab</h2>
-            <p>HM GOATHI(10512) C-80 GF,FIHAARA 02</p>
-            <p>TIN: 1124975GST501</p>
-            <p>9333143</p>
-        </div>
-        <div class="top_right">
-            <img src="" alt="" srcset="">
+        <h2 class="quote">QUOTE <span class="main_col">#SL/113</span></h2>
+        
+        <div class="top">
+            <div class="top_left">
+                <h2 class="main_col">Smart Lab</h2>
+                <p>HM GOATHI(10512) C-80 GF,FIHAARA 02</p>
+                <p>TIN: 1124975GST501</p>
+                <p>9333143</p>
+            </div>
+            <div class="top_right">
+                <img src="http://localhost/logo/smart_lab_logo.png" alt="" srcset="">
+            </div>
         </div>
     </div>
 

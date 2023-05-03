@@ -166,11 +166,11 @@ class CreateEstimate extends Component
         $lastCodeNumber = 0;
         
         if ($lastEstimate) {
-            $lastCodeNumber = (int)substr($lastEstimate->estimate_no, -6);
+            $lastCodeNumber = (int)substr($lastEstimate->estimate_no, -4);
         }
         
         $newCodeNumber = $lastCodeNumber + 1;
-        $newCode = 'SL-ET-' . str_pad($newCodeNumber, 6, '0', STR_PAD_LEFT);
+        $newCode = 'SL-ET-' . str_pad($newCodeNumber, 4, '0', STR_PAD_LEFT);
         
         return $newCode;
     }
