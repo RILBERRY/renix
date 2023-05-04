@@ -34,7 +34,7 @@ class CreateEstimate extends Component
             session()->forget('customer');
             session()->forget('estimate');
         }
-        if(session()->has('customer')){
+        if(session()->has('estimate')){
             $this->estimate = session()->get('estimate');
             $this->customer = session()->get('customer');
             $this->receiptSavedStatus = $this->estimate->status == "COMPLETED"?true:false;

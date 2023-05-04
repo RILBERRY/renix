@@ -56,8 +56,10 @@ class EstimateController extends Controller
      */
     public function edit(Estimate $estimate)
     {
+        $estimate->load('customer');
         session()->put('estimate', $estimate);
         session()->put('isEditing', true);
+        session()->put('customer',  $estimate->customer);
         return view('app.edit-estimate');
     }
 
