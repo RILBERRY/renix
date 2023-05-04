@@ -221,7 +221,7 @@ class CreatePurchase extends Component
             'payable_id' => $this->payable->id,
         ]);
         session()->forget('purchases');
-        return redirect()->to(route('purchases.list'));
+        return redirect()->to('/purchases');
 
     }
 

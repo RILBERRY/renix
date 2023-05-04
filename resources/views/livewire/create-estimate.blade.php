@@ -167,7 +167,7 @@
         <div class="p-3 mt-2 space-x-3 flex w-full justify-center text-white">
             <button class="w-32 p-1 bg-green-800/90 mx-auto rounded-lg {{ $receiptSavedStatus ? 'hidden' : '' }}"
                 wire:click="saveEstimate">Save</button>
-            <a href="{{ route('download-estimate', !$estimate?->id?:1)}}" class="p-2 bg-blue-800/90 flex-1 rounded-lg {{ $receiptSavedStatus ?: 'hidden' }}">Print
+            <a href="/sales/estimate/{{$estimate?->id}}/download" class="p-2 bg-blue-800/90 flex-1 rounded-lg text-center {{ $receiptSavedStatus ?: 'hidden' }}">Print
                 Estimate</a>
             <button class="p-2 bg-green-800/90 flex-1 rounded-lg {{ $receiptSavedStatus ?: 'hidden' }}">
                 Invoice</button>

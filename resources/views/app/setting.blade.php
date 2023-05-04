@@ -4,7 +4,7 @@
 <div class="w-full p-2 flex flex-col text-xs space-y-1">
     <div class="w-full p-2 flex justify-between">
         <h3 class=" text-sm font-semibold my-auto">Funds</h3>
-        <a href="{{route('create-fund')}}" class="p-2 bg-blue-500 text-white rounded-md w-24 text-center my-auto"> + Funds</a>
+        <a href="/setting/fund/create" class="p-2 bg-blue-500 text-white rounded-md w-24 text-center my-auto"> + Funds</a>
     </div>
 
     <div class="w-full p-2 flex justify-between bg-gray-400  text-white rounded-md">
