@@ -147,13 +147,13 @@
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="font-weight:bold; font-size:14px;border-bottom:1px solid;">TAX</td>
-                        <td style="padding:2px;border-bottom:1px solid;text-align:right;">0.00</td>
+                        <td style="padding:2px;border-bottom:1px solid;text-align:right;">{{ $estimate->customer->tin? number_format($estimate->total*0.08,2) :'0.00';}} </td>
                     </tr>
                     <tr>
                         <td style=" width:50%;"></td>
                         <td></td>
                         <td style="color:orange; font-weight:bold; border-bottom:1px solid black; font-size:14px;">QOUTE TOTAL</td>
-                        <td style="padding:2px;border-bottom:1px solid;text-align:right; font-weight:bold;">{{number_format($estimate->total,2)}}</td>
+                        <td style="padding:2px;border-bottom:1px solid;text-align:right; font-weight:bold;">{{$estimate->customer->tin? number_format($estimate->total*1.08,2) :number_format($estimate->total,2);}}</td>
                     </tr>
                 </tbody>
             </table>

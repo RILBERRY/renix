@@ -134,14 +134,17 @@ class CreateEstimate extends Component
         $this->validate($this->customerRules);
         $this->customer->code = $this->customer->code?:$this->createCustomerCode();
         $this->customer->save();
-        $this->estimate = Estimate::create([
-            'estimate_no' => $this->generateEstimateNo() ,
-            'valid_till' => Carbon::now()->addDays(14)->toDateString() ,
-            'customer_id' => $this->customer->id ,
-            'status' => 'PENDING',
-        ]);
-        $this->estimate->save();
-        session()->put('estimate',$this->estimate);
+        if(!session()->has('estimate ')){
+            $this->estimate = Estimate::create([
+                'estimate_no' => $this->generateEstimateNo() ,
+                'valid_till' => Carbon::now()->addDays(14)->toDateString() ,
+                'customer_id' => $this->customer->id ,
+                'status' => 'PENDING',
+            ]);
+            $this->estimate->save();
+            session()->put('estimate',$this->estimate);
+        }
+
         session()->put('customer',$this->customer);
         $this->load('itemsInfo');
     }

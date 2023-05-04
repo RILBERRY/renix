@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('inv_no');
+            $table->foreignId('customer_id')->nullable()->constrained('customers');
+            $table->decimal('tax',8,2);
+            $table->string('status');
             $table->timestamps();
         });
     }
