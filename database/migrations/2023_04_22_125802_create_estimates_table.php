@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('estimate_no');
             $table->string('valid_till')->nullable();
             $table->foreignId('customer_id')->nullable()->constrained('customers');
+            $table->string('complete_date')->nullable();
+            $table->boolean('with_material')->default(1);
             $table->string('status')->nullable();
             $table->timestamps();
         });

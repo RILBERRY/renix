@@ -16,6 +16,8 @@ class Estimate extends Model
         'estimate_no',
         'valid_till',
         'customer_id',
+        'complete_date',
+        'with_material',
         'status',
     ];
 
@@ -29,7 +31,7 @@ class Estimate extends Model
     }
     public static function getEstimateTotal($id)
 	{
-        return Orders::where('estimate_id',$id)->selectRaw('SUM(qty * price) as total')->first()->total;
+        return Orders::where('estimate_id',$id)->selectRaw('SUM(qty * (price/100)) as total')->first()->total;
 	}
 
 }

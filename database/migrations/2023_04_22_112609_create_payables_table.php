@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payables', function (Blueprint $table) {
             $table->id();
             $table->string('description')->nullable();
-            $table->decimal('amount',10,2);
+            $table->integer('amount');
             $table->string('status');
             $table->string('ref_number')->nullable();
             $table->foreignId('approved_by')->nullable()->constrained('users');

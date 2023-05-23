@@ -7,9 +7,9 @@
         <a href="/sales/estimate/create" class="text-xs p-2 rounded-lg bg-green-800/90 text-white">
             Make a Estimate
         </a>
-        <a href="/sales/create" class="text-xs p-2 rounded-lg bg-green-800/90 text-white">
+        {{-- <a href="/sales/create" class="text-xs p-2 rounded-lg bg-green-800/90 text-white">
             Make a Sales
-        </a>
+        </a> --}}
     </div>
     <div class="w-[90%] h-[70vh] mx-auto overflow-y-scroll scrollbar-hide">
         <div class= "space-y-2 h-full flex flex-col">

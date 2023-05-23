@@ -13,13 +13,11 @@ class Orders extends Model
         'status',
         'estimate_id',
         'invoice_id',
-        'item_id',
+        'title',
+        'description',
         'qty',
         'price',
     ];
 
-    public function item(): BelongsTo
-    {
-        return $this->belongsTo(Items::class);
-    }
+
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EstimateController;
 use App\Http\Controllers\FundsController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\SettingsController;
@@ -33,10 +34,12 @@ Route::middleware('auth')->group(function (){
     Route::get('/sales/estimate/create',[EstimateController::class,'createEstimate'])->name('create-estimate');
     Route::get('/sales/estimate/{estimate}/download',[EstimateController::class,'downloadEstimate'])->name('download-estimate');
     Route::get('/sales/estimate/{estimate}/edit',[EstimateController::class,'edit'])->name('edit-estimate');
-   
+    
+    Route::get('/sales/invoice/{invoice}/edit',[InvoiceController::class,'viewInvoice'])->name('view-invoice');
+    Route::get('/sales/invoice/{estimate}/create/',[InvoiceController::class,'createInvoice'])->name('create-invoice');
     
     // home
-    Route::get('/home',[ItemsController::class,'home'])->name('home');
+    Route::get('/home',[EstimateController::class,'all'])->name('home');
     
     // purchase
     Route::get('/purchases',[PurchasesController::class,'index'])->name('purchases.list');

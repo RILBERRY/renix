@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('inv_no');
             $table->foreignId('customer_id')->nullable()->constrained('customers');
-            $table->decimal('tax',8,2);
+            $table->integer('tax');
             $table->string('status');
             $table->timestamps();
         });

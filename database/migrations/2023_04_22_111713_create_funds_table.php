@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('currency');
             $table->boolean('status');
-            $table->decimal('balance',10,2)->nullable();
+            $table->integer('balance')->nullable();
             $table->timestamps();
         });
     }

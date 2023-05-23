@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('estimate_id')->nullable()->constrained('estimates');
             $table->foreignId('invoice_id')->nullable()->constrained('invoices');
-            $table->foreignId('item_id')->nullable()->constrained('items');
+            $table->string('title');
+            $table->string('description')->nullable();
             $table->integer('qty')->default(1);
-            $table->decimal('price',10,2)->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

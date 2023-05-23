@@ -32,6 +32,7 @@ class FundsController extends Controller
     public function store(Request $request)
     {
         $data = Funds::checkAndCollect($request);
+        $data['balance'] = $data['balance']*100;
         $record = Funds::create($data);
         return $record
         ? redirect(route('setting'))->with('success', 'Model created successfully!')

@@ -51,8 +51,8 @@
             <h4 class="p-2 pt-6 text-white">Ali Rilwan</h4>
             <a href="/home" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Home</a>
             <a href="/sales" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Sales</a>
-            <a href="/purchases" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Purchases</a>
-            <a href="/inventory" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Inventory</a>
+            {{-- <a href="/purchases" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Purchases</a>
+            <a href="/inventory" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Inventory</a> --}}
             <a href="/setting" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">setting</a>
             {{-- <a href="/manage-tasks" class="p-2 w-full bg-white rounded-md hover:bg-gray-300">Manage tasks</a> --}}
             <form action="/logout" method="post">
